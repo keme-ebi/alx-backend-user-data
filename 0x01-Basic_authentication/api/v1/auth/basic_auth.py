@@ -2,6 +2,7 @@
 """basic_auth module"""
 from api.v1.auth.auth import Auth
 from models.user import User
+from typing import TypeVar
 import base64
 
 
@@ -83,3 +84,14 @@ class BasicAuth(Auth):
                     return user
         except Exception:
             return None
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """overloads Auth and retrieves the User instance for a request"""
+        autho_header = self.authorization_header(request)
+        if autho_header:
+            header = self.extract_base64_authorization_header(autho_header)
+            dec_header = self.decode_base64_authorization_header(header)
+            email, pwd = self.extract_user_credentials(dec_header)
+            user = self.user_object_from_credentials(email, pwd)
+            return user
+        return

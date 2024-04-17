@@ -2,6 +2,7 @@
 """manage API authentication"""
 from flask import request
 from typing import List, TypeVar
+import os
 
 
 class Auth:
@@ -46,3 +47,15 @@ class Auth:
             request: the Flask request object
         """
         return None
+
+    def session_cookie(self, request=None) -> str:
+        """returns a cookie value from a request
+        Arg:
+            request: the Flast request object
+        Return:
+            value of the cookie
+        """
+        if not request:
+            return None
+        session = os.getenv('SESSION_NAME')
+        return request.cookies.get(session)

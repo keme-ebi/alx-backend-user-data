@@ -30,6 +30,7 @@ def auth_session_login() -> str:
             user_rep.set_cookie(ses_name, session)
             return user_rep
 
+
 @app_views.route('/auth_session/logout',
                  methods=['DELETE'],
                  strict_slashes=False)

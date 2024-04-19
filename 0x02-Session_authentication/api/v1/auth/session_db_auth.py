@@ -28,6 +28,9 @@ class SessionDBAuth(SessionExpAuth):
             user = UserSession.search({"session_id": session_id})
         except Exception:
             return None
+
+        if not user:
+            return None
         # get session when a key is equal to session id
         session = self.user_id_by_session_id.get(session_id)
         if not session:

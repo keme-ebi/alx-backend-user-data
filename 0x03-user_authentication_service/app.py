@@ -12,6 +12,7 @@ def basic():
     """returns a JSON payload"""
     return jsonify({"message": "Bienvenue"})
 
+
 @app.route('/users', methods=['POST'], strict_slashes=False)
 def register():
     """registers a user"""

@@ -59,3 +59,15 @@ class DB:
         if not user:
             raise NoResultFound
         return user
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """locates user by id and updates it from the kwargs
+        Args:
+            user_id(int): the user id to locate
+            kwargs: key-word argument
+        """
+        user = self.find_user_by(id=user_id)
+        for key, value in kwargs.items():
+            if not hasattr(user, key):
+                raise ValueError
+            setattr(user, key, value)
